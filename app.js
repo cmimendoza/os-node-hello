@@ -9,7 +9,7 @@ const server = http.createServer((req, res) => {
     
     res.statusCode = 200;
     
-    res.end('OK 1.3  v1: '+ v1 +'');    
+    res.end('OK 1.4  v1: '+ v1 +'');    
 });
 
 server.listen(port, hostname, () => {
