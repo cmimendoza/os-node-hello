@@ -142,8 +142,9 @@ jobs:
         echo "CREAR Y DEPLOIYAR !!! "
         oc project ${OPENSHIFT_NAMESPACE}
         oc get bc ${APP_NAME}-bc 2>&1 | tee oc_get_output.txt
-        echo "Evaluando GREP"
+        echo "Evaluando GREP 2"
         result=$(grep 'NotFound' oc_get_output.txt)
+        echo "resultado $result "
         if [ "$result" = "" ]
           echo "Construyendo"
           oc start-build hnode-bc
