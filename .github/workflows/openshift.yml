@@ -146,6 +146,8 @@ jobs:
           oc new-app --template=ght -p APPLICATION=${APP_NAME}
         else
           #oc start-build -n ${OPENSHIFT_NAMESPACE} ${APP_NAME}-bc
+          echo "k paso aqui"
           oc start-build -n gitdocker hnode-bc
+          echo "k paso SALIDA"
         fi
 
