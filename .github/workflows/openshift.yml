@@ -145,6 +145,7 @@ jobs:
         if [ $? -eq 0 ]; then
           oc new-app --template=ght -p APPLICATION=${APP_NAME}
         else
-          oc start-build -n ${OPENSHIFT_NAMESPACE} ${APP_NAME}-bc
+          #oc start-build -n ${OPENSHIFT_NAMESPACE} ${APP_NAME}-bc
+          oc start-build -n gitdocker hnode-bc
         fi
 
