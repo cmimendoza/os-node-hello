@@ -141,10 +141,10 @@ jobs:
       continue-on-error: true
       run: |
         BC_EXISTE="SI"
-        echo "Verifica si existe $BC_EXISTE"
+        echo "BC_EXISTE=$BC_EXISTE" >> $GITHUB_ENV
         oc project ${OPENSHIFT_NAMESPACE}
         oc get bc ${APP_NAME}-bc 2>&1 | tee oc_get_output.txt
-        echo "Evaluando GREP 3"
+        echo "Evaluando grep"
         result=$(grep 'NotFound' oc_get_output.txt)
         BC_EXISTE="NO"
         echo "BC_EXISTE=$BC_EXISTE" >> $GITHUB_ENV
