@@ -137,17 +137,20 @@ jobs:
         insecure_skip_tls_verify: true
         namespace: ${{ env.OPENSHIFT_NAMESPACE }}
         
-    #oc start-build -n ${OPENSHIFT_NAMESPACE} ${APP_NAME}-bc
     - name: Crear y deployar
       run: |
         #oc get bc -n ${OPENSHIFT_NAMESPACE} ${APP_NAME}-bc
         oc project ${OPENSHIFT_NAMESPACE}
-        oc get bc -n ${OPENSHIFT_NAMESPACE} ${APP_NAME}-bc 2>&1 | tee oc_get_output.txt
+        #oc get bc -n ${OPENSHIFT_NAMESPACE} ${APP_NAME}-bc 2>&1 | tee oc_get_output.txt
+        oc get bc ${APP_NAME}-bc 2>&1 | tee oc_get_output.txt
         grep -q 'NotFound' oc_get_output.txt
         if [ $? -eq 0 ]; then
           oc new-app --template=ght -p APPLICATION=${APP_NAME}
         else
           #oc start-build -n gitdocker hnode-bc --follow
-          oc start-build hnode-bc --follow
+          #oc start-build -n ${OPENSHIFT_NAMESPACE} ${APP_NAME}-bc
+          echo "PRE BUILD"
+          oc start-build hnode-bc
+          echo "POST BUILD"
         fi
 
