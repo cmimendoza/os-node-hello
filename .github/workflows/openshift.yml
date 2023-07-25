@@ -140,6 +140,7 @@ jobs:
     - name: Crear y deployar
       run: |
         oc get bc -n ${OPENSHIFT_NAMESPACE} ${APP_NAME}-bc
+        grep -q 'NotFound' oc_get_output.txt
         if [ $? -eq 0 ]; then
           oc start-build ${APP_NAME}-bc
         else
