@@ -139,11 +139,11 @@ jobs:
         
     - name: Crear y deployar
       run: |
-        oc get bc -n {{ env.OPENSHIFT_NAMESPACE }} ${env.APP_NAME}-bc
+        oc get bc -n {{ env.OPENSHIFT_NAMESPACE }} ${APP_NAME}-bc
         if [ $? -eq 0 ]; then
-          oc start-build ${env.APP_NAME}-bc
+          oc start-build ${APP_NAME}-bc
         else
-          oc new-app --template=ght -p APPLICATION=${env.APP_NAME}
+          oc new-app --template=ght -p APPLICATION=${APP_NAME}
         fi
 
     - name: Print application URL
