@@ -138,6 +138,7 @@ jobs:
         namespace: ${{ env.OPENSHIFT_NAMESPACE }}
         
     - name: Crear y deployar
+      continue-on-error: true
       run: |
         echo "CREAR Y DEPLOIYAR !!! "
         oc project ${OPENSHIFT_NAMESPACE}
