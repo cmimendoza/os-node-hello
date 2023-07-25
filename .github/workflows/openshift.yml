@@ -152,7 +152,7 @@ jobs:
     - name: Crear y deployar
       run: |
         echo "BC_EXISTE $BC_EXISTE "
-        if [ "$BC_EXISTE" = "NO" ]; then
+        if [ "$BC_EXISTE" = "SI" ]; then
           echo "Construyendo"
           oc start-build hnode-bc
           echo "POST BUILD"
