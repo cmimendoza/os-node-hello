@@ -147,9 +147,9 @@ jobs:
         echo "pre if"
         echo $?
         if [ $? -eq 0 ]; then
-          oc start-build ${APP_NAME}-bc
-        else
           oc new-app --template=ght -p APPLICATION=${APP_NAME}
+        else
+          oc start-build ${APP_NAME}-bc
         fi
 
     - name: Print application URL
