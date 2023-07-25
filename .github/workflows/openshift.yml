@@ -139,9 +139,13 @@ jobs:
         
     - name: Crear y deployar
       run: |
+        echo "En CRear y deploy"
         #oc get bc -n ${OPENSHIFT_NAMESPACE} ${APP_NAME}-bc
         oc get bc -n ${OPENSHIFT_NAMESPACE} ${APP_NAME}-bc 2>&1 | tee oc_get_output.txt
+        echo "Ejecuta get bc"
         grep -q 'NotFound' oc_get_output.txt
+        echo "pre if"
+        echo $?
         if [ $? -eq 0 ]; then
           oc start-build ${APP_NAME}-bc
         else
