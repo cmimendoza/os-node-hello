@@ -144,9 +144,12 @@ jobs:
         #oc get bc -n ${OPENSHIFT_NAMESPACE} ${APP_NAME}-bc 2>&1 | tee oc_get_output.txt
         oc get bc ${APP_NAME}-bc 2>&1 | tee oc_get_output.txt
         grep -q 'NotFound' oc_get_output.txt
+        echo "En el IF"
         if [ $? -eq 0 ]; then
+          echo "CReando APP"
           oc new-app --template=ght -p APPLICATION=${APP_NAME}
         else
+          echo "Construyendo"
           #oc start-build -n gitdocker hnode-bc --follow
           #oc start-build -n ${OPENSHIFT_NAMESPACE} ${APP_NAME}-bc
           echo "PRE BUILD"
