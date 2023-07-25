@@ -137,6 +137,7 @@ jobs:
         insecure_skip_tls_verify: true
         namespace: ${{ env.OPENSHIFT_NAMESPACE }}
         
+    #oc start-build -n ${OPENSHIFT_NAMESPACE} ${APP_NAME}-bc
     - name: Crear y deployar
       run: |
         #oc get bc -n ${OPENSHIFT_NAMESPACE} ${APP_NAME}-bc
@@ -145,9 +146,6 @@ jobs:
         if [ $? -eq 0 ]; then
           oc new-app --template=ght -p APPLICATION=${APP_NAME}
         else
-          #oc start-build -n ${OPENSHIFT_NAMESPACE} ${APP_NAME}-bc
-          echo "k paso aq ui"
           oc start-build -n gitdocker hnode-bc
-          echo "k paso SALIDA"
         fi
 
