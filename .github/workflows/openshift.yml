@@ -142,6 +142,7 @@ jobs:
         echo "CREAR Y DEPLOIYAR !!! "
         oc project ${OPENSHIFT_NAMESPACE}
         oc get bc ${APP_NAME}-bc 2>&1 | tee oc_get_output.txt
+        echo "Evaluando GREP"
         grep -q 'NotFound' oc_get_output.txt
         echo $?
         if [ $? -eq 0 ]; then
