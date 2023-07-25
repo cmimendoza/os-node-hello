@@ -143,14 +143,13 @@ jobs:
         oc project ${OPENSHIFT_NAMESPACE}
         oc get bc ${APP_NAME}-bc 2>&1 | tee oc_get_output.txt
         echo "Evaluando GREP"
-        grep -q 'NotFound' oc_get_output.txt
-        echo $?
-        if [ $? -eq 0 ]; then
-          echo "CReando APP"
-          oc new-app --template=ght -p APPLICATION=${APP_NAME}
-        else
+        result=$(grep 'NotFound' oc_get_output.txt)
+        if [ "$result" = "" ]
           echo "Construyendo"
           oc start-build hnode-bc
           echo "POST BUILD"
+        else
+          echo "CReando APP"
+          oc new-app --template=ght -p APPLICATION=${APP_NAME}
         fi
 
