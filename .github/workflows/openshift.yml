@@ -37,8 +37,6 @@ env:
 
   # 🖊️ EDIT to set a name for your OpenShift app, or a default one will be generated below.
   APP_NAME: "hnode"
-  
-  BC_EXISTE: "SI"
 
   # 🖊️ EDIT with the port your application should be accessible on.
   # If the container image exposes *exactly one* port, this can be left blank.
@@ -138,20 +136,22 @@ jobs:
         openshift_token: ${{ env.OPENSHIFT_TOKEN }}
         insecure_skip_tls_verify: true
         namespace: ${{ env.OPENSHIFT_NAMESPACE }}
+        
     - name: Verifica Si existe
       continue-on-error: true
       run: |
-        BC_EXISTE = '${BC_EXISTE}'
+        BC_EXISTE = "SI"
+        echo "Verifica si existe $BC_EXISTE"
         oc project ${OPENSHIFT_NAMESPACE}
         oc get bc ${APP_NAME}-bc 2>&1 | tee oc_get_output.txt
         echo "Evaluando GREP 3"
         result=$(grep 'NotFound' oc_get_output.txt)
-        BC_EXISTE = 'NO'
+        BC_EXISTE = "NO"
         
     - name: Crear y deployar
       run: |
         echo "BC_EXISTE $BC_EXISTE "
-        if [ "$BC_EXISTE" = "NO" ]
+        if [ "$BC_EXISTE" = "NO" ]; then
           echo "Construyendo"
           oc start-build hnode-bc
           echo "POST BUILD"
