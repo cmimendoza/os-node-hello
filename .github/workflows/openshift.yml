@@ -147,6 +147,7 @@ jobs:
         echo "Evaluando GREP 3"
         result=$(grep 'NotFound' oc_get_output.txt)
         BC_EXISTE="NO"
+        echo "BC_EXISTE=$BC_EXISTE" >> $GITHUB_ENV
         
     - name: Crear y deployar
       run: |
